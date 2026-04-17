@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    LSPosed Recommended Scope
+    ─────────────────────────
+    LSPosed Manager reads this array at install time and pre-selects these
+    package names in the module's "Scope" tab so the user doesn't have to
+    hunt for each app manually.
+
+    Referenced from AndroidManifest.xml via:
+        android:resource="@array/xposed_scope"
+-->
+<resources>
+    <string-array name="xposed_scope">
+        <item>ru.sberbankmobile</item>
+        <item>ru.alfabank.mobile.android</item>
+        <item>ru.vtb24.mobilebanking.android</item>
+        <item>com.idamob.tinkoff.android</item>
+        <item>ru.ozon.app.android</item>
+        <item>com.wildberries.ru</item>
+        <item>ru.megamarket.marketplace</item>
+        <item>ru.sbcs.store</item>
+        <item>ru.vk.store</item>
+        <item>com.avito.android</item>
+        <item>ru.foodfox.client</item>
+        <item>com.vkontakte.android</item>
+        <item>com.vk.vkvideo</item>
+        <item>ru.ok.android</item>
+        <item>ru.rutube.app</item>
+        <item>com.uma.musicvk</item>
+        <item>ru.oneme.app</item>
+        <item>ru.yandex.yandexmaps</item>
+        <item>ru.yandex.taxi</item>
+        <item>ru.dublgis.dgismobile</item>
+        <item>ru.yandex.music</item>
+        <item>ru.kinopoisk</item>
+        <item>com.yandex.browser</item>
+        <item>ru.mts.mymts</item>
+    </string-array>
+</resources>

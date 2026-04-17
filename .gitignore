@@ -1,0 +1,47 @@
+# ─── Personal  ─────────────────────────────────────────────────────────
+local.properties
+*.hprof
+
+# ─── Android build output ─────────────────────────────────────────────────────
+/build/
+app/build/
+**/build/
+
+# ─── Gradle internal state ────────────────────────────────────────────────────
+.gradle/
+android/.gradle/
+gradle/binary-store/
+
+# ─── Gradle wrapper JARs  ──────────────────
+!gradle/wrapper/gradle-wrapper.properties
+gradle/wrapper/gradle-wrapper.jar
+
+# ─── CMake / NDK build intermediates ──────────────────────────────────────────
+.cxx/
+app/.cxx/
+.externalNativeBuild/
+
+# ─── IntelliJ IDEA / Android Studio ──────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+captures/
+
+# ─── macOS ────────────────────────────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+
+# ─── Signing keystores  ────────────────────────────────────
+*.jks
+*.keystore
+key.properties
+
+# ─── Lint baseline (generated — can be regenerated with updateLintBaseline) ───
+lint-baseline.xml
+
+# ─── Test logs ──────────────────────────────────────────────────────────────
+test_logs/

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        android:maxSdkVersion="99" />
+
+    <application
+        android:label="@string/app_name"
+        android:description="@string/app_description"
+        android:icon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HandsOffMyVPN">
+
+        <activity
+            android:name="dev.lok1s.handoffmyvpn.ui.MainActivity"
+            android:exported="true"
+            android:label="@string/app_short_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="xposedminversion"
+            android:value="93" />
+
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Hides VPN, root, Xposed/LSPosed, and Frida from target apps.
+            Java layer: spoofs NetworkCapabilities, LinkProperties, proxy settings.
+            Native layer: sanitizes /proc/self/maps, /proc/net/tcp, mountinfo, getifaddrs." />
+
+        <meta-data
+            android:name="xposedscope"
+            android:resource="@array/xposed_scope" />
+
+    </application>
+</manifest>
