@@ -1,14 +1,15 @@
 [versions]
-agp            = "8.4.2"
-kotlin         = "1.9.24"
-ksp            = "1.9.24-1.0.20"
-material3 = "1.4.0"
+agp            = "9.1.1"
+kotlin         = "2.2.10"
+ksp            = "2.3.2"
+material3 = "1.5.0-alpha17"
 yukihookapi    = "1.2.0"
 coreKtx        = "1.13.1"
 # NDK version — AGP will auto-download if not present
 ndk            = "27.0.12077973"
 activity       = "1.9.0"
-compose-bom    = "2024.06.00"
+compose-bom    = "2025.05.01"
+material = "1.13.0"
 
 [libraries]
 # AndroidX
@@ -27,8 +28,10 @@ androidx-compose-ui        = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application        = { id = "com.android.application",  version.ref = "agp"    }
 kotlin-android             = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp                        = { id = "com.google.devtools.ksp",   version.ref = "ksp"    }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

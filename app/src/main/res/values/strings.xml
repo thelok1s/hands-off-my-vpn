@@ -4,4 +4,5 @@
     <string name="app_description">LSPosed module that spoofs VPN-detection APIs to hide active VPN connections from target apps.</string>
     <string name="module_enabled">Module is active — VPN detection hooks are loaded.</string>
     <string name="module_disabled">Module is inactive — enable it in LSPosed Manager.</string>
+    <string name="module_active_desc">VPN detection is hidden from all target apps.</string>
 </resources>

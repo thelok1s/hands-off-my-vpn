@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     // KSP processor generates the Xposed meta-data from @InjectYukiHookWithXposed
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -53,16 +54,15 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            freeCompilerArgs.addAll(
+                "-opt-in=androidx.compose.material3.ExperimentalMaterial3ExpressiveApi"
+            )
         }
     }
 
     buildFeatures {
         buildConfig = true
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
     }
 
     // CMake build file for the native Dobby-based payload
@@ -83,6 +83,7 @@ android {
 
 dependencies {
     implementation(libs.yukihook.api)
+    implementation(libs.material)
     compileOnly("de.robv.android.xposed:api:82") { isTransitive = false }
     ksp(libs.yukihook.ksp.xposed)
 
