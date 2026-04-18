@@ -4,11 +4,14 @@ import com.highcapable.yukihookapi.annotation.xposed.InjectYukiHookWithXposed
 import com.highcapable.yukihookapi.hook.factory.encase
 import com.highcapable.yukihookapi.hook.log.YLog
 import com.highcapable.yukihookapi.hook.xposed.proxy.IYukiHookXposedInit
+import dev.lok1s.handoffmyvpn.hook.LogDispatcher
 import dev.lok1s.handoffmyvpn.hook.ConnectivityManagerHook
 import dev.lok1s.handoffmyvpn.hook.LinkPropertiesHook
 import dev.lok1s.handoffmyvpn.hook.NativeLoader
 import dev.lok1s.handoffmyvpn.hook.NetworkCapabilitiesHook
 import dev.lok1s.handoffmyvpn.hook.NetworkInterfaceHook
+import dev.lok1s.handoffmyvpn.hook.IfconfigDetectorHook
+import dev.lok1s.handoffmyvpn.hook.OsInterfaceHook
 import dev.lok1s.handoffmyvpn.hook.ProxyHook
 import dev.lok1s.handoffmyvpn.hook.SystemPropertyHook
 
@@ -44,12 +47,15 @@ class HookEntry : IYukiHookXposedInit {
 
         loadApp {
             YLog.debug(msg = "HandsOffMyVPN loading into: $packageName", tag = TAG)
+            LogDispatcher.notifyLoaded()
 
             // VPN network detection — core API hooks
             NetworkCapabilitiesHook.register(this)
             ConnectivityManagerHook.register(this)
             NetworkInterfaceHook.register(this)
+            OsInterfaceHook.register(this)
             LinkPropertiesHook.register(this)
+            IfconfigDetectorHook.register(this)
 
             // Proxy detection
             SystemPropertyHook.register(this)

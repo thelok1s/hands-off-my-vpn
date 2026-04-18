@@ -4,7 +4,9 @@ local.properties
 
 # ─── Android build output ─────────────────────────────────────────────────────
 /build/
+/release/
 app/build/
+app/release/
 **/build/
 
 # ─── Gradle internal state ────────────────────────────────────────────────────

@@ -75,10 +75,10 @@ object LinkPropertiesHook {
                 after {
                     val ifaceName = result as? String ?: return@after
                     if (isVpnInterfaceName(ifaceName)) {
-                        // Replace with a safe default — wlan0 is the most common WiFi interface
                         val replacement = findUnderlyingInterfaceName() ?: "wlan0"
                         YLog.debug(msg = "getInterfaceName: '$ifaceName' → '$replacement'", tag = TAG)
                         result = replacement
+                        LogDispatcher.dispatch("getInterfaceName()", "'$ifaceName' → '$replacement' (spoofed)")
                     }
                 }
             }
@@ -110,6 +110,7 @@ object LinkPropertiesHook {
                         if (underlyingLp != null) {
                             YLog.debug(msg = "getLinkProperties: substituting VPN LP with underlying (${underlyingLp.interfaceName})", tag = TAG)
                             result = underlyingLp
+                            LogDispatcher.dispatch("getLinkProperties()", "VPN LP replaced with ${underlyingLp.interfaceName} (spoofed)")
                         }
                     }
                 }

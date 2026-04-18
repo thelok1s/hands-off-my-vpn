@@ -99,7 +99,9 @@ object ConnectivityManagerHook {
         }.hook {
             after {
                 val nc = result as? NetworkCapabilities ?: return@after
+                val hadVpn = isVpnTransportPresent(nc)
                 stripVpnTransport(nc)
+                if (hadVpn) LogDispatcher.dispatch("getNetworkCapabilities()", "VPN transport stripped")
             }
         }
     }
@@ -136,6 +138,8 @@ object ConnectivityManagerHook {
                 }.toTypedArray()
 
                 YLog.debug(msg = "getAllNetworks: ${networks.size} → ${filtered.size} networks after VPN filter", tag = TAG)
+                if (filtered.size < networks.size)
+                    LogDispatcher.dispatch("getAllNetworks()", "hid ${networks.size - filtered.size} VPN network(s)")
                 result = filtered
             }
         }
@@ -167,6 +171,8 @@ object ConnectivityManagerHook {
                 }.toTypedArray()
 
                 YLog.debug(msg = "getAllNetworkInfo: ${infos.size} → ${filtered.size} entries after VPN filter", tag = TAG)
+                if (filtered.size < infos.size)
+                    LogDispatcher.dispatch("getAllNetworkInfo()", "hid ${infos.size - filtered.size} VPN entry(s)")
                 result = filtered
             }
         }

@@ -17,8 +17,8 @@ android {
         applicationId  = "dev.lok1s.handoffmyvpn"
         minSdk         = 28          // Android 9 — Dobby ARM64 trampoline requirement
         targetSdk      = 35
-        versionCode    = 3
-        versionName    = "2.2.0"
+        versionCode    = 4
+        versionName    = "2.3.0"
 
         ndk {
             abiFilters += listOf("arm64-v8a", "armeabi-v7a")
