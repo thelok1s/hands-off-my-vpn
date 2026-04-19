@@ -1,5 +1,6 @@
 package dev.lok1s.handoffmyvpn.hook
 
+import android.annotation.SuppressLint
 import android.net.ConnectivityManager
 import android.net.LinkProperties
 import android.net.Network
@@ -29,11 +30,12 @@ import com.highcapable.yukihookapi.hook.param.PackageParam
  * VPN DNS servers (e.g., 1.1.1.1) reveal VPN presence. We substitute
  * the underlying network's DNS servers.
  */
+@SuppressLint("SoonBlockedPrivateApi")
 object LinkPropertiesHook {
 
     private const val TAG = "HandsOffMyVPN/LP"
     private const val TRANSPORT_VPN = 4
-    private val VPN_TRANSPORT_MASK: Long = 1L shl TRANSPORT_VPN
+    private const val VPN_TRANSPORT_MASK: Long = 1L shl TRANSPORT_VPN
 
     /**
      * Interface name prefixes that indicate a VPN tunnel.
@@ -44,12 +46,16 @@ object LinkPropertiesHook {
      * Cached reflection handle for `NetworkCapabilities.mTransportTypes`.
      */
     private val transportTypesField: java.lang.reflect.Field? by lazy {
-        try {
-            NetworkCapabilities::class.java
-                .getDeclaredField("mTransportTypes")
-                .apply { isAccessible = true }
-        } catch (e: Exception) {
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
             null
+        } else {
+            try {
+                NetworkCapabilities::class.java
+                    .getDeclaredField("mTransportTypes")
+                    .apply { isAccessible = true }
+            } catch (e: Exception) {
+                null
+            }
         }
     }
 
@@ -206,6 +212,13 @@ object LinkPropertiesHook {
      * Check raw mTransportTypes bitmask for TRANSPORT_VPN.
      */
     private fun isVpnTransportPresent(caps: NetworkCapabilities): Boolean {
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
+            return try {
+                caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+            } catch (_: Exception) {
+                false
+            }
+        }
         return try {
             val field = transportTypesField ?: return false
             val bitmask = field.getLong(caps)

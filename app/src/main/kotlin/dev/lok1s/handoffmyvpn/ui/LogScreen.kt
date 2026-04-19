@@ -14,20 +14,32 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.lok1s.handoffmyvpn.R
 import dev.lok1s.handoffmyvpn.hook.DetectionLog
+import dev.lok1s.handoffmyvpn.ui.theme.HOMVTheme
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
 @Composable
 fun LogScreen() {
-    val context = LocalContext.current
     val state by DetectionLog.stateFlow.collectAsState()
-    val entries = state.entries
+    LogScreenContent(
+        entries = state.entries,
+        onClear = { DetectionLog.clear() }
+    )
+}
 
+@Composable
+private fun LogScreenContent(
+    entries: List<DetectionLog.Entry>,
+    onClear: () -> Unit
+) {
+    val context = LocalContext.current
     if (entries.isEmpty()) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Column(
@@ -41,7 +53,7 @@ fun LogScreen() {
                     tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
                 )
                 Text(
-                    text = "No detection events intercepted yet",
+                    text = stringResource(R.string.no_events_intercepted),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -62,34 +74,46 @@ fun LogScreen() {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = "${entries.size} event${if (entries.size != 1) "s" else ""} intercepted",
+                        text = if (entries.size != 1)
+                            stringResource(R.string.events_intercepted_plural, entries.size)
+                        else
+                            stringResource(R.string.events_intercepted_singular, entries.size),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary,
                     )
                     Row {
+                        val exportSubject = stringResource(R.string.export_log_subject)
+                        val exportChooser = stringResource(R.string.export_log_chooser)
+
+                        val logHeader = stringResource(R.string.export_log_header)
+                        val header = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date())
+                        val logExported = stringResource(R.string.export_log_exported, header)
+                        val logTotal = stringResource(R.string.export_log_total, entries.size)
+
                         IconButton(
                             onClick = {
-                                val text = formatExport(entries)
+                                val text = formatExport(logHeader, logExported, logTotal, entries)
                                 context.startActivity(
                                     Intent.createChooser(
                                         Intent(Intent.ACTION_SEND).apply {
                                             type = "text/plain"
                                             putExtra(Intent.EXTRA_TEXT, text)
-                                            putExtra(Intent.EXTRA_SUBJECT, "HandsOffMyVPN Log")
+                                            putExtra(Intent.EXTRA_SUBJECT, exportSubject)
                                         },
-                                        "Export log"
+                                        exportChooser
                                     )
                                 )
                             }
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.Share,
-                                contentDescription = "Export log",
+                                contentDescription = stringResource(R.string.export_log),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(20.dp),
                             )
                         }
-                        TextButton(onClick = { DetectionLog.clear() }) {
-                            Text("Clear", style = MaterialTheme.typography.labelMedium)
+                        IconButton(onClick = onClear) {
+                            Text(stringResource(R.string.clear), style = MaterialTheme.typography.labelMedium)
                         }
                     }
                 }
@@ -149,12 +173,16 @@ private fun LogItemCard(entry: DetectionLog.Entry) {
     }
 }
 
-private fun formatExport(entries: List<DetectionLog.Entry>): String {
-    val header = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date())
+private fun formatExport(
+    logHeader: String,
+    logExported: String,
+    logTotal: String,
+    entries: List<DetectionLog.Entry>
+): String {
     return buildString {
-        appendLine("HandsOffMyVPN Detection Log")
-        appendLine("Exported: $header")
-        appendLine("Total events: ${entries.size}")
+        appendLine(logHeader)
+        appendLine(logExported)
+        appendLine(logTotal)
         appendLine()
         entries.forEach { e ->
             append("[${e.formattedTime}] ${e.packageName}")
@@ -163,5 +191,41 @@ private fun formatExport(entries: List<DetectionLog.Entry>): String {
             if (e.detail.isNotBlank()) append("  (${e.detail})")
             appendLine()
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LogScreenPreview() {
+    HOMVTheme {
+        LogScreenContent(
+            entries = listOf(
+                DetectionLog.Entry(
+                    timestamp = System.currentTimeMillis(),
+                    packageName = "com.example.app",
+                    method = "getNetworkInfo",
+                    action = "Spoofed DISCONNECTED",
+                    detail = "NetworkType: WIFI"
+                ),
+                DetectionLog.Entry(
+                    timestamp = System.currentTimeMillis() - 10000,
+                    packageName = "com.another.vpn",
+                    method = "isVpnConnected",
+                    action = "Returned FALSE"
+                )
+            ),
+            onClear = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LogScreenEmptyPreview() {
+    HOMVTheme {
+        LogScreenContent(
+            entries = emptyList(),
+            onClear = {}
+        )
     }
 }

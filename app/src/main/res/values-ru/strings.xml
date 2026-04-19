@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_description">LSPosed модуль, который подменяет методы обнаружения VPN, чтобы скрыть активные подключения к VPN от целевых приложений.</string>
+    <string name="module_enabled">Модуль активен — перехватчики обнаружения VPN загружены.</string>
+    <string name="module_disabled">Модуль неактивен — включите его в LSPosed Manager.</string>
+    <string name="module_active_desc">Методы обнаружения VPN от всех целевых приложений.</string>
+
+    <!-- Navigation -->
+    <string name="nav_status">Статус</string>
+    <string name="nav_apps">Приложения</string>
+    <string name="nav_log">Логи</string>
+
+    <!-- Status Screen -->
+    <string name="update_available">Доступно обновление!</string>
+    <string name="module_active">Модуль активен</string>
+    <string name="module_inactive">Модуль не активен</string>
+    <string name="framework_name">Название</string>
+    <string name="framework_unknown">Неизвестно</string>
+    <string name="framework_version">Версия</string>
+    <string name="app_info">Информация</string>
+    <string name="app_type">Тип</string>
+    <string name="view_on_github">Открыть на GitHub</string>
+
+    <!-- Apps Screen -->
+    <string name="no_apps_in_scope">"Нет целевых приложений "</string>
+    <string name="apps_installed_count">Установлено %1$d из %2$d приложений</string>
+    <string name="apps_installed_count_singular">Установлено %1$d из %2$d приложения</string>
+
+    <!-- Log Screen -->
+    <string name="no_events_intercepted">Пока нет перехваченных событий обнаружения VPN</string>
+    <string name="events_intercepted_plural">Перехвачено %1$d событий</string>
+    <string name="events_intercepted_singular">Перехвачено %1$d событие</string>
+    <string name="export_log">Экспорт логов</string>
+    <string name="clear">Очистить</string>
+    <string name="export_log_header">Лог HandsOfMyVPN</string>
+    <string name="export_log_exported">Экспортировано: %s</string>
+    <string name="export_log_total">Всего событий: %d</string>
+    <string name="export_log_subject">Журнал HandsOffMyVPN</string>
+    <string name="export_log_chooser">Экспорт журнала</string>
+</resources>

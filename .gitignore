@@ -8,6 +8,11 @@ local.properties
 app/build/
 app/release/
 **/build/
+**/release/
+/app/release/
+app/debug/
+/app/debug/
+**/debug/
 
 # ─── Gradle internal state ────────────────────────────────────────────────────
 .gradle/

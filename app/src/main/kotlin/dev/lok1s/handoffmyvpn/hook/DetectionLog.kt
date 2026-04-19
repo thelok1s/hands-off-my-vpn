@@ -38,12 +38,6 @@ object DetectionLog {
     private val _state = MutableStateFlow(State())
     val stateFlow: StateFlow<State> = _state.asStateFlow()
 
-    val entries: List<Entry>
-        get() = _state.value.entries
-
-    val totalCount: Long
-        get() = _state.value.totalCount
-
     fun record(
         packageName: String,
         method: String,

@@ -1,6 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">HandsOffMyVPN</string>
-    <string name="app_short_name" translatable="false">HOMV</string>
     <string name="app_description">LSPosed module that spoofs VPN-detection APIs to hide active VPN connections from target apps.</string>
     <string name="module_enabled">Module is active — VPN detection hooks are loaded.</string>
     <string name="module_disabled">Module is inactive — enable it in LSPosed Manager.</string>
@@ -15,7 +14,6 @@
     <string name="update_available">Update available!</string>
     <string name="module_active">Module Active</string>
     <string name="module_inactive">Module Inactive</string>
-    <string name="framework_lsposed" translatable="false">LSPosed Framework</string>
     <string name="framework_name">Name</string>
     <string name="framework_unknown">Unknown</string>
     <string name="framework_version">Version</string>

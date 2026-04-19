@@ -46,7 +46,7 @@ object ConnectivityManagerHook {
     private const val TYPE_VPN = 17
 
     /** Bitmask for TRANSPORT_VPN inside `NetworkCapabilities.mTransportTypes`. */
-    private val VPN_TRANSPORT_MASK: Long = 1L shl TRANSPORT_VPN   // == 0x10L
+    private const val VPN_TRANSPORT_MASK: Long = 1L shl TRANSPORT_VPN   // == 0x10L
 
     /**
      * Cached reflection handle for `NetworkCapabilities.mTransportTypes`.

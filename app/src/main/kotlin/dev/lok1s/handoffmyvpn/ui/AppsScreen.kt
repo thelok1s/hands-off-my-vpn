@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -71,7 +72,7 @@ fun AppsScreenContent(apps: List<AppInfo>) {
                     tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
                 )
                 Text(
-                    text = "No apps in scope",
+                    text = stringResource(R.string.no_apps_in_scope),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -86,7 +87,10 @@ fun AppsScreenContent(apps: List<AppInfo>) {
         ) {
             item {
                 Text(
-                    text = "$installed of ${apps.size} app${if (apps.size != 1) "s" else ""} installed",
+                    text = if (apps.size != 1)
+                        stringResource(R.string.apps_installed_count, installed, apps.size)
+                    else
+                        stringResource(R.string.apps_installed_count_singular, installed, apps.size),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(bottom = 4.dp),
@@ -107,7 +111,7 @@ private fun AppItemCard(app: AppInfo, onOpen: () -> Unit) {
         onClick = if (app.launchIntent != null) onOpen else { {} },
         modifier = Modifier
             .fillMaxWidth()
-            .alpha(if (app.isInstalled) 1f else 0.45f),
+            .alpha(1f),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
         ),
@@ -172,7 +176,7 @@ private fun loadApps(context: Context): List<AppInfo> {
         LogReceiver.PREFS_ENABLED_APPS, Context.MODE_PRIVATE
     ).all.keys
 
-    return (scopePackages + dynamicPackages).map { pkg ->
+    return (scopePackages + dynamicPackages).mapNotNull { pkg ->
         try {
             val appInfo = pm.getApplicationInfo(pkg, 0)
             AppInfo(
@@ -183,15 +187,9 @@ private fun loadApps(context: Context): List<AppInfo> {
                 launchIntent = pm.getLaunchIntentForPackage(pkg)
             )
         } catch (_: PackageManager.NameNotFoundException) {
-            AppInfo(
-                packageName = pkg,
-                appName = pkg.substringAfterLast('.').replaceFirstChar { it.uppercaseChar() },
-                icon = null,
-                isInstalled = false,
-                launchIntent = null
-            )
+            null
         }
-    }.sortedWith(compareByDescending<AppInfo> { it.isInstalled }.thenBy { it.appName })
+    }.sortedWith(compareByDescending<AppInfo> { it.appName })
 }
 
 @Preview(showBackground = true)

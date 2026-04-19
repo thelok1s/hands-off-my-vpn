@@ -40,9 +40,9 @@ private data class NavTab(val title: String, val icon: androidx.compose.ui.graph
 @Composable
 fun MainScreen() {
     val tabs = listOf(
-        NavTab("Status", Icons.Rounded.Shield),
-        NavTab("Apps", Icons.Rounded.Apps),
-        NavTab("Log", Icons.Rounded.Assessment),
+        NavTab(stringResource(R.string.nav_status), Icons.Rounded.Shield),
+        NavTab(stringResource(R.string.nav_apps), Icons.Rounded.Apps),
+        NavTab(stringResource(R.string.nav_log), Icons.Rounded.Assessment),
     )
 
     val pagerState = rememberPagerState(pageCount = { tabs.size })

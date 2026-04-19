@@ -63,7 +63,7 @@ private fun UpdateCard(update: UpdateInfo) {
                 )
                 Column {
                     Text(
-                        text = "Update available",
+                        text = stringResource(R.string.update_available),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onTertiaryContainer,
@@ -179,7 +179,7 @@ private fun StatusHeroCard(isModuleActive: Boolean) {
         MaterialTheme.colorScheme.onErrorContainer
 
     val icon = if (isModuleActive) Icons.Rounded.VerifiedUser else Icons.Rounded.GppBad
-    val headline = if (isModuleActive) "Module Active" else "Module Inactive"
+    val headline = if (isModuleActive) stringResource(R.string.module_active) else stringResource(R.string.module_inactive)
     val subtext = if (isModuleActive)
         stringResource(R.string.module_active_desc)
     else
@@ -203,7 +203,7 @@ private fun StatusHeroCard(isModuleActive: Boolean) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(72.dp),
+                modifier = Modifier.size(64.dp),
                 tint = contentColor,
             )
             Text(
@@ -235,16 +235,16 @@ private fun FrameworkInfoCard(executorName: String, executorVersion: String) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
-                text = "LSPosed Framework",
+                text = stringResource(R.string.framework_lsposed),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
             )
             HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
-            InfoRow("Name", executorName.ifBlank { "Unknown" },
+            InfoRow(stringResource(R.string.framework_name), executorName.ifBlank { stringResource(R.string.framework_unknown) },
                 MaterialTheme.colorScheme.onSecondaryContainer)
             if (executorVersion.isNotBlank()) {
-                InfoRow("Version", executorVersion,
+                InfoRow(stringResource(R.string.framework_version), executorVersion,
                     MaterialTheme.colorScheme.onSecondaryContainer)
             }
         }
@@ -265,14 +265,14 @@ private fun BuildInfoCard() {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
-                text = "App info",
+                text = stringResource(R.string.app_info),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-            InfoRow("Version", "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
-            InfoRow("Type", BuildConfig.BUILD_TYPE)
+            InfoRow(stringResource(R.string.framework_version), "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
+            InfoRow(stringResource(R.string.app_type), BuildConfig.BUILD_TYPE)
         }
     }
 }
@@ -296,7 +296,7 @@ private fun GitHubCard() {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "View on GitHub",
+                text = stringResource(R.string.view_on_github),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurface,

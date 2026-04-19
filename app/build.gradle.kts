@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-android {
+extensions.configure<com.android.build.api.dsl.ApplicationExtension>  {
     namespace   = "dev.lok1s.handoffmyvpn"
     compileSdk  = 35
 
@@ -17,11 +17,11 @@ android {
         applicationId  = "dev.lok1s.handoffmyvpn"
         minSdk         = 28          // Android 9 — Dobby ARM64 trampoline requirement
         targetSdk      = 35
-        versionCode    = 4
-        versionName    = "2.3.0"
+        versionCode    = 5
+        versionName    = "2.5.0"
 
         ndk {
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64")
         }
 
         externalNativeBuild {
@@ -74,7 +74,7 @@ android {
     }
 
     // YukiHookAPI KSP output directory
-    sourceSets["main"].kotlin.srcDir("build/generated/ksp/main/kotlin")
+    sourceSets["main"].kotlin.directories.add("build/generated/ksp/main/kotlin")
 
     packaging {
         jniLibs.useLegacyPackaging = true

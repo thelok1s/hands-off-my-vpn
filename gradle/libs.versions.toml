@@ -17,6 +17,7 @@ androidx-compose-material-icons-extended = { module = "androidx.compose.material
 androidx-core-ktx          = { group = "androidx.core",         name = "core-ktx",        version.ref = "coreKtx" }
 
 # YukiHookAPI — runtime + KSP code-generator
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 yukihook-api               = { group = "com.highcapable.yukihookapi", name = "api",         version.ref = "yukihookapi" }
 yukihook-ksp-xposed        = { group = "com.highcapable.yukihookapi", name = "ksp-xposed",  version.ref = "yukihookapi" }

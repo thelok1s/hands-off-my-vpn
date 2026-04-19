@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import dev.lok1s.handoffmyvpn.hook.DetectionLog
+import androidx.core.content.edit
 
 class LogReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -14,7 +15,7 @@ class LogReceiver : BroadcastReceiver() {
         val ts     = intent.getLongExtra("ts", System.currentTimeMillis())
 
         context.getSharedPreferences(PREFS_ENABLED_APPS, Context.MODE_PRIVATE)
-            .edit().putLong(pkg, ts).apply()
+            .edit { putLong(pkg, ts) }
 
         if (method == "__loaded__") return
         DetectionLog.record(pkg, method, action, detail, ts)
